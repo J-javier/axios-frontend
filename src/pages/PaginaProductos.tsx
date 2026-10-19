@@ -8,8 +8,11 @@ function PaginaProductos() {
     const [error, setError] = useState(false)
 
     const cargarProductos = () => {
-    api.get('/productops')
-      .then((res) => setProductos(res.data.products))
+    api.get('/products')
+      .then((res) => {
+      console.log(res.data.products[0]);
+      setProductos(res.data.products);
+    })
       .catch(() => setError(true))
       .finally(() => setCargando(false));
   };
