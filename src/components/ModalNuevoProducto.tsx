@@ -70,6 +70,14 @@ export function ModalNuevoProducto({ abierto, onCerrar }: Props) {
     }); 
  
     useEffect(() => {
+        const getCategories = async () => {
+            const {data} = await api.get("/products/category-list");
+            setCategories(data)
+        }
+        getCategories();
+    }, [])
+
+    useEffect(() => {
         const dialog = dialogRef.current;
         if (!dialog) return;
         if (abierto && !dialog.open) dialog.showModal();
@@ -82,7 +90,8 @@ export function ModalNuevoProducto({ abierto, onCerrar }: Props) {
     };
 
     const submit =  async  (producto: NuevoProducto) => { 
-
+            const {data} = await api.post("/products/add", producto);
+            console.log(data);
     };
  
     const accesible = (campo: keyof NuevoProducto) => ({
