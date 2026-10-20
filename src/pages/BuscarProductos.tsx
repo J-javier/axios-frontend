@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../lib/axios';
-import type { Producto } from '../types/producto';
+import type { Producto, RespuestaProductos } from '../types/producto';
 import { ProductoCard } from '../components/ProductoCard';
 
 export function BuscarProductos() {
@@ -8,7 +8,7 @@ export function BuscarProductos() {
     const [productos, setProductos] = useState<Producto[]>([]);
 
     useEffect(() => {
-        api.get('/products/search', { params: { q: busqueda } }).then(((res) => setProductos(res.data.products)))
+        api.get<RespuestaProductos>('/products/search', { params: { q: busqueda } }).then(((res) => setProductos(res.data.products)))
     }, [busqueda])
 
     return (

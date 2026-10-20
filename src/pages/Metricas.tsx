@@ -1,6 +1,7 @@
 // src/pages/Metricas.tsx
 import { useState, useEffect } from 'react';
 import { api } from '../lib/axios';
+import type { Paginacion } from '../types/producto';
 
 export function Metricas() {
   const [productos, setProductos] = useState<number | null>(null);
@@ -14,9 +15,9 @@ export function Metricas() {
   */
 
     useEffect(()=>{
-        api.get('/products').then((res) => setProductos(res.data.total)) 
-        api.get('/users').then((res) => setUsuarios(res.data.total))
-        api.get('/carts').then((res) => setCarritos(res.data.total))
+        api.get<Paginacion>('/products').then((res) => setProductos(res.data.total)) 
+        api.get<Paginacion>('/users').then((res) => setUsuarios(res.data.total))
+        api.get<Paginacion>('/carts').then((res) => setCarritos(res.data.total))
     },[])
 
 /* async and await */

@@ -1,6 +1,6 @@
 import { api } from '../lib/axios'
 import { useEffect, useState } from 'react'
-import type { Producto } from '../types/producto';
+import type { Producto, RespuestaProductos } from '../types/producto';
 import { ProductoCard } from '../components/ProductoCard';
 
 function PaginaProductos() {
@@ -9,7 +9,7 @@ function PaginaProductos() {
     const [error, setError] = useState(false)
 
     const cargarProductos = () => {
-    api.get('/products')
+    api.get<RespuestaProductos>('/products')
       .then((res) => {
       console.log(res.data.products[0]);
       setProductos(res.data.products);
